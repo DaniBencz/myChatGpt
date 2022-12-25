@@ -1,16 +1,15 @@
 import dotenv from 'dotenv-safe';
-import { ChatGPTAPI } from 'chatgpt';
+import { ChatGPTAPIBrowser } from 'chatgpt';
 
 dotenv.config();
 
 async function example() {
-    // sessionToken is required; see below for details
-    const api = new ChatGPTAPI({
-        sessionToken: process.env.SESSION_TOKEN || '',
+    const api = new ChatGPTAPIBrowser({
+        email: process.env.OPENAI_EMAIL || '',
+        password: process.env.OPENAI_PASSWORD || '',
     });
 
-    // ensure the API is properly authenticated
-    await api.ensureAuth();
+    await api.initSession();
 
     // send a message and wait for the response
     const response = await api.sendMessage(
